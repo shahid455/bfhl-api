@@ -1,3 +1,6 @@
+app.get("/bfhl", (req, res) => {
+  res.send("BFHL route is working");
+});
 const express = require("express");
 const cors = require("cors");
 const app = express();
