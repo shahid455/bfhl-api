@@ -40,28 +40,28 @@
 
   <pre id="output"></pre>
   <script>
-    async function sendData() {
-      const raw = document.getElementById("input").value;
-      const data = raw.split(",").map(e => e.trim());
+async function sendData() {
+  const raw = document.getElementById("input").value;
+  const data = raw.split(",").map(e => e.trim());
 
-      try {
-        const res = await fetch("http://localhost:3000/bfhl", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({ data })
-        });
+  try {
+    const res = await fetch("https://bfhl-api-41x2.onrender.com/bfhl", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ data })
+    });
 
-        const result = await res.json();
-        document.getElementById("output").innerText =
-          JSON.stringify(result, null, 2);
+    const result = await res.json();
+    document.getElementById("output").innerText =
+      JSON.stringify(result, null, 2);
 
-      } catch (err) {
-        document.getElementById("output").innerText =
-          "Error connecting to API";
-      }
-    }
+  } catch (err) {
+    document.getElementById("output").innerText =
+      "Error connecting to API";
+  }
+}
   </script>
 </body>
 </html>
