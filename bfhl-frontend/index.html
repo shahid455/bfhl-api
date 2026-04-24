@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>BFHL API Tester</title>
+  <style>
+    body {
+      font-family: Arial;
+      background: #9692e4;
+      text-align: center;
+      padding: 40px;
+    }
+    textarea {
+      width: 300px;
+      height: 100px;
+      padding: 10px;
+    }
+    button {
+      padding: 10px 20px;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+    pre {
+      text-align: left;
+      background: #222;
+      color: rgb(150, 164, 24);
+      padding: 15px;
+      margin-top: 20px;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Hierarchy Builder Tool</h1>
+
+  <p>Enter edges (comma separated):</p>
+  <textarea id="input">A->B,A->C,B->D</textarea><br>
+
+  <button onclick="sendData()">Submit</button>
+
+  <pre id="output"></pre>
+  <script>
+    async function sendData() {
+      const raw = document.getElementById("input").value;
+      const data = raw.split(",").map(e => e.trim());
+
+      try {
+        const res = await fetch("http://localhost:3000/bfhl", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ data })
+        });
+
+        const result = await res.json();
+        document.getElementById("output").innerText =
+          JSON.stringify(result, null, 2);
+
+      } catch (err) {
+        document.getElementById("output").innerText =
+          "Error connecting to API";
+      }
+    }
+  </script>
+</body>
+</html>
